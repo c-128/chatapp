@@ -14,8 +14,7 @@ public class Main {
 
         if (args.contains("server")) {
             Server.start();
-        }
-        if (args.contains("client")) {
+        } else {
             Client.start();
         }
     }

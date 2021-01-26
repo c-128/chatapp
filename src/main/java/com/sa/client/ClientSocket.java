@@ -11,7 +11,7 @@ public class ClientSocket {
     public static Socket s;
 
     public static void init() throws IOException {
-        s = new Socket("localhost", 90);
+        s = new Socket(Client.IP, Client.PORT);
 
         DataInputStream in = new DataInputStream(s.getInputStream());
 
