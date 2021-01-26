@@ -13,16 +13,19 @@ public class ClientSocket {
     public static void init() throws IOException {
         s = new Socket(Client.IP, Client.PORT);
 
-        DataInputStream in = new DataInputStream(s.getInputStream());
-
         Thread msgt = new Thread(() -> {
-            while (true) {
-                try {
+            try {
+                DataInputStream in = new DataInputStream(s.getInputStream());
+
+                while (!s.isClosed()) {
                     String msg = in.readUTF();
                     ClientUI.msgs.setText(ClientUI.msgs.getText() + "<p>" + msg + "</p>");
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+
+                System.out.println("Closing inputstream");
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         msgt.start();

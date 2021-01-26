@@ -1,20 +1,22 @@
 com/sa/main/utils/Config.java
  com.sa.main.utils.Config
-com/sa/main/utils/VaribleUtils.java
- com.sa.main.utils.VaribleUtils
-com/sa/server/ServerSocket.java
- com.sa.server.ServerSocket
-com/sa/server/Server.java
- com.sa.server.Server
-com/sa/main/utils/Message.java
- com.sa.main.utils.Message
-com/sa/client/ui/ClientUI.java
- com.sa.client.ui.ClientUI
-com/sa/client/ui/ClientLoginUI.java
- com.sa.client.ui.ClientLoginUI
-com/sa/client/ClientSocket.java
- com.sa.client.ClientSocket
-com/sa/client/Client.java
- com.sa.client.Client
 com/sa/main/Main.java
  com.sa.main.Main
+com/sa/client/Client.java
+ com.sa.client.Client
+com/sa/client/utils/CommandHandler.java
+ com.sa.client.utils.CommandHandler
+com/sa/server/Server.java
+ com.sa.server.Server
+com/sa/client/ui/ClientUI.java
+ com.sa.client.ui.ClientUI
+com/sa/client/ClientSocket.java
+ com.sa.client.ClientSocket
+com/sa/main/utils/VaribleUtils.java
+ com.sa.main.utils.VaribleUtils
+com/sa/client/ui/ClientLoginUI.java
+ com.sa.client.ui.ClientLoginUI
+com/sa/main/utils/Message.java
+ com.sa.main.utils.Message
+com/sa/server/ServerSocket.java
+ com.sa.server.ServerSocket

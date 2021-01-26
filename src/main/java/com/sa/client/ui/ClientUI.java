@@ -3,6 +3,7 @@ package com.sa.client.ui;
 import com.google.gson.JsonObject;
 import com.sa.client.Client;
 import com.sa.client.ClientSocket;
+import com.sa.client.utils.CommandHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,9 +34,10 @@ public class ClientUI {
 
         JButton sendmsg = new JButton("->");
         sendmsg.setBounds(420, 310, 70, 25);
-        DataOutputStream out  = new DataOutputStream(ClientSocket.s.getOutputStream());
+        DataOutputStream out = new DataOutputStream(ClientSocket.s.getOutputStream());
         sendmsg.addActionListener(e -> {
             try {
+                CommandHandler.handle(msg.getText());
                 JsonObject json = new JsonObject();
                 json.addProperty("author", Client.USR);
                 json.addProperty("msg", msg.getText());
@@ -43,6 +45,7 @@ public class ClientUI {
                 json.addProperty("usr", Client.USR);
 
                 out.writeUTF(json.toString());
+                msg.setText(null);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

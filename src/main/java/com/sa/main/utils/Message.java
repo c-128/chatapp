@@ -8,8 +8,10 @@ public class Message {
     private static JsonObject JSON;
 
     public Message(String jsonstr) {
-        JsonParser parser = new JsonParser();
-        JSON = (JsonObject) parser.parse(jsonstr);
+        if (VaribleUtils.isJSON(jsonstr)) {
+            JsonParser parser = new JsonParser();
+            JSON = (JsonObject) parser.parse(jsonstr);
+        }
     }
 
     public String getAuthor() {

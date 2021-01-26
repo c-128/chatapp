@@ -31,8 +31,8 @@ public class ServerSocket {
                         }
                     }
 
+                    in.close();
                     clients.remove(client);
-                    client.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
