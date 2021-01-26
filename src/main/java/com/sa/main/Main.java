@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] launchargs) throws IOException {
+    public static void main(String[] launchargs) throws Exception {
         List<String> args = Arrays.asList(launchargs);
 
         if (args.contains("server")) {

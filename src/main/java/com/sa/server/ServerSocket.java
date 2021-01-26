@@ -3,8 +3,6 @@ package com.sa.server;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sa.client.Client;
-import com.sa.client.ClientSocket;
 import com.sa.main.utils.Message;
 import com.sa.main.utils.VaribleUtils;
 
@@ -18,7 +16,7 @@ import java.util.HashMap;
 
 public class ServerSocket {
 
-    public static void init() throws IOException {
+    public static void init() throws Exception {
         java.net.ServerSocket s = new java.net.ServerSocket(90);
 
         ArrayList<Socket> clients = new ArrayList<>();

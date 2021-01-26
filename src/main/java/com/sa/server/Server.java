@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Server {
 
-    public static void start() throws IOException {
+    public static void start() throws Exception {
         ServerSocket.init();
     }
 }

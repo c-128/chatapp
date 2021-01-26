@@ -25,7 +25,7 @@ public class ClientUI {
         p.setLayout(null);
 
         JButton members = new JButton("ON");
-        members.setBounds(10, 10, 480, 25);
+        members.setBounds(10, 10, 420, 25);
         members.addActionListener(e -> {
             try {
                 JsonObject json = new JsonObject();
@@ -39,12 +39,23 @@ public class ClientUI {
                 }
                 on = on + "</body></html>";
 
-                JOptionPane.showConfirmDialog(f, on , "ChatApp - Members", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showConfirmDialog(f, on, "ChatApp - Members", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception Exception) {
+                Exception.printStackTrace();
+            }
+        });
+        p.add(members);
+
+        JButton exit = new JButton("X");
+        exit.setBounds(430, 10, 50, 25);
+        exit.addActionListener(e -> {
+            try {
+                CommandHandler.handle("!exit");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
-        p.add(members);
+        p.add(exit);
 
         msgs = new JLabel("<html><body><p style='color: red;'>PLEASE EXIT WITH '!exit'</p>");
         JScrollPane msgscroll = new JScrollPane(msgs, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -56,7 +67,7 @@ public class ClientUI {
         p.add(msg);
 
         JButton sendmsg = new JButton("->");
-        sendmsg.setBounds(420, 310, 70, 25);
+        sendmsg.setBounds(420, 310, 75, 25);
         sendmsg.addActionListener(e -> {
             try {
                 CommandHandler.handle(msg.getText());
@@ -69,8 +80,8 @@ public class ClientUI {
 
                 out.writeUTF(json.toString());
                 msg.setText(null);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+            } catch (Exception Exception) {
+                Exception.printStackTrace();
             }
         });
         p.add(sendmsg);
