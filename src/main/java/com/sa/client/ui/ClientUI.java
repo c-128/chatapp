@@ -18,14 +18,37 @@ public class ClientUI {
     public static void init() throws IOException {
         f = new JFrame();
         f.setSize(new Dimension(520, 400));
+        DataOutputStream out = new DataOutputStream(ClientSocket.s.getOutputStream());
 
         JPanel p = new JPanel();
         p.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
         p.setLayout(null);
 
-        msgs = new JLabel("<html><body>");
+        JButton members = new JButton("ON");
+        members.setBounds(10, 10, 480, 25);
+        members.addActionListener(e -> {
+            try {
+                JsonObject json = new JsonObject();
+                json.addProperty("task", "online-memb");
+
+                out.writeUTF(json.toString());
+
+                String on = "<html><body><p>Online members:</p>";
+                for (String name : ClientSocket.ONLINE) {
+                    on = on + "<p>" + name + "</p>";
+                }
+                on = on + "</body></html>";
+
+                JOptionPane.showConfirmDialog(f, on , "ChatApp - Members", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        p.add(members);
+
+        msgs = new JLabel("<html><body><p style='color: red;'>PLEASE EXIT WITH '!exit'</p>");
         JScrollPane msgscroll = new JScrollPane(msgs, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        msgscroll.setBounds(10, 10, 480, 300);
+        msgscroll.setBounds(10, 60, 480, 250);
         p.add(msgscroll);
 
         JTextField msg = new JTextField();
@@ -34,11 +57,11 @@ public class ClientUI {
 
         JButton sendmsg = new JButton("->");
         sendmsg.setBounds(420, 310, 70, 25);
-        DataOutputStream out = new DataOutputStream(ClientSocket.s.getOutputStream());
         sendmsg.addActionListener(e -> {
             try {
                 CommandHandler.handle(msg.getText());
                 JsonObject json = new JsonObject();
+                json.addProperty("task", "msg");
                 json.addProperty("author", Client.USR);
                 json.addProperty("msg", msg.getText());
                 json.addProperty("ip", ClientSocket.s.getInetAddress().getHostAddress());
