@@ -52,7 +52,7 @@ public class ClientLoginUI {
                 if (VaribleUtils.isInt(port.getText())) {
                     Client.PORT = Integer.parseInt(port.getText());
                 } else {
-                    JOptionPane.showConfirmDialog(f, "ChatApp - Error", "Invalid Port\nPlease check the values or contact the\nsystem administrator.", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(f, "ChatApp - Error", "<html><body><p>Invalid Port<br />Please check the values or contact the<br />system administrator.</p></body></html>", JOptionPane.DEFAULT_OPTION);
                 }
                 Client.USR = usr.getText();
                 ClientSocket.init();
