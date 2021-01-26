@@ -26,15 +26,16 @@ public class ServerSocket {
                     DataInputStream in = new DataInputStream(client.getInputStream());
 
                     String data = "";
-                    while (!data.equalsIgnoreCase("exit")) {
+                    while (!data.equalsIgnoreCase("end")) {
                         data = in.readUTF();
                         for (Socket c : clients) {
-                            //if (!c.getInetAddress().getHostAddress().equalsIgnoreCase(client.getInetAddress().getHostAddress())) {
-                                Message msg = new Message(data);
-                                new DataOutputStream(c.getOutputStream()).writeUTF(msg.getAuthor() + ": " + msg.getMsg());
-                            //}
+                            Message msg = new Message(data);
+                            new DataOutputStream(c.getOutputStream()).writeUTF(msg.getAuthor() + ": " + msg.getMsg());
                         }
                     }
+
+                    clients.remove(client);
+                    client.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -1,5 +1,7 @@
 package com.sa.client;
 
+import com.sa.client.ui.ClientUI;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,5 +16,8 @@ public class Client {
         USR = in.readLine();
 
         ClientSocket.init();
+
+        ClientUI.init();
+        ClientUI.open();
     }
 }
