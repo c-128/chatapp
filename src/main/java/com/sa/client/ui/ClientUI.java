@@ -39,21 +39,9 @@ public class ClientUI {
         op.setVisible(false);
         op.setLayout(null);
 
-        JButton logout = new JButton("<html><p style='color: red;'>LOGOUT</p></html>");
-        logout.setBounds(10, 300, 100, 30);
-        logout.addActionListener(e -> {
-            close();
-            Config.setString("client.logged_in", "false");
-            Config.setString("client.port", "null");
-            Config.setString("client.usr", "null");
-            Config.setString("client.ip", "null");
-            try {
-                CommandHandler.handle("!exit");
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-        op.add(logout);
+        JPanel optionsmenu = new JPanel();
+        optionsmenu.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        optionsmenu.setLayout(new GridLayout(10, 0));
 
         JPanel generalopt = new JPanel();
         generalopt.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
@@ -66,32 +54,52 @@ public class ClientUI {
         layoutopt.setLayout(null);
 
         JButton bruh = new JButton("Bruh");
-        bruh.setBounds(130, 10, 100, 30);
+        bruh.setBounds(140, 10, 100, 30);
         generalopt.add(bruh);
 
         JButton general = new JButton("General");
-        general.setBounds(10, 10, 100, 30);
+        general.setBounds(5, 10, 100, 30);
         general.addActionListener(e -> {
             generalopt.setVisible(!generalopt.isVisible());
             layoutopt.setVisible(false);
         });
-        op.add(general);
+        optionsmenu.add(general);
 
         JButton defaultlayout = new JButton("Default");
-        defaultlayout.setBounds(130, 10, 100, 30);
+        defaultlayout.setBounds(140, 10, 100, 30);
         layoutopt.add(defaultlayout);
 
         JButton darklayout = new JButton("Dark");
-        darklayout.setBounds(240, 10, 100, 30);
+        darklayout.setBounds(250, 10, 100, 30);
         layoutopt.add(darklayout);
 
         JButton layout = new JButton("Layout");
-        layout.setBounds(10, 50, 100, 30);
+        layout.setBounds(5, 50, 100, 30);
         layout.addActionListener(e -> {
             layoutopt.setVisible(!layoutopt.isVisible());
             generalopt.setVisible(false);
         });
-        op.add(layout);
+        optionsmenu.add(layout);
+
+        JButton logout = new JButton("<html><p style='color: red;'>LOGOUT</p></html>");
+        logout.setBounds(5, 400, 100, 30);
+        logout.addActionListener(e -> {
+            close();
+            Config.setString("client.logged_in", "false");
+            Config.setString("client.port", "null");
+            Config.setString("client.usr", "null");
+            Config.setString("client.ip", "null");
+            try {
+                CommandHandler.handle("!exit");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        optionsmenu.add(logout);
+
+        JScrollPane optionscroll = new JScrollPane(optionsmenu, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        optionscroll.setBounds(10, 10, 130, 340);
+        op.add(optionscroll);
 
         JButton optionsex = new JButton("X");
         optionsex.setBounds(440, 10, 50, 50);
