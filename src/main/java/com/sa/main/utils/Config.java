@@ -11,7 +11,6 @@ public class Config {
     public static void init() throws IOException {
         p = new Properties();
         file = "app.config";
-        InputStream is;
         File f = new File(file);
 
         if (!f.exists()) {
@@ -21,9 +20,10 @@ public class Config {
             p.setProperty("client.ip", "null");
             p.setProperty("client.port", "null");
             p.setProperty("client.usr", "null");
+            p.setProperty("client.opt.notification", "true");
         }
 
-        is = new FileInputStream(file);
+        InputStream is = new FileInputStream(file);
         p.load(is);
 
         save();
@@ -49,6 +49,7 @@ public class Config {
         p.setProperty(v, k);
         try {
             save();
+            reload();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,5 +58,17 @@ public class Config {
     public static void save() throws IOException {
         OutputStream o = new FileOutputStream(file);
         p.save(o, "This is the config for the chatapp");
+    }
+
+    public static void reload() {
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+            p.load(is);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

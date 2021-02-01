@@ -48,10 +48,10 @@ public class ClientUI {
         generalopt.setVisible(false);
         generalopt.setLayout(null);
 
-        JPanel layoutopt = new JPanel();
-        layoutopt.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
-        layoutopt.setVisible(false);
-        layoutopt.setLayout(null);
+        JPanel notifyopt = new JPanel();
+        notifyopt.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
+        notifyopt.setVisible(false);
+        notifyopt.setLayout(null);
 
         JLabel usrinfo = new JLabel("Username: " + Client.USR);
         usrinfo.setBounds(140, 10, 200, 30);
@@ -65,25 +65,25 @@ public class ClientUI {
         general.setBounds(5, 10, 100, 30);
         general.addActionListener(e -> {
             generalopt.setVisible(!generalopt.isVisible());
-            layoutopt.setVisible(false);
+            notifyopt.setVisible(false);
         });
         optionsmenu.add(general);
 
-        JButton defaultlayout = new JButton("Default");
-        defaultlayout.setBounds(140, 10, 100, 30);
-        layoutopt.add(defaultlayout);
+        JCheckBox notifications = new JCheckBox("Enable Notifications");
+        notifications.setBounds(140, 10, 200, 30);
+        notifications.setSelected(Config.getBoolean("client.opt.notification"));
+        notifications.addActionListener(e -> {
+            Config.setString("client.opt.notification", String.valueOf(notifications.isSelected()));
+        });
+        notifyopt.add(notifications);
 
-        JButton darklayout = new JButton("Dark");
-        darklayout.setBounds(250, 10, 100, 30);
-        layoutopt.add(darklayout);
-
-        JButton layout = new JButton("Layout");
-        layout.setBounds(5, 50, 100, 30);
-        layout.addActionListener(e -> {
-            layoutopt.setVisible(!layoutopt.isVisible());
+        JButton notifiy = new JButton("Notifications");
+        notifiy.setBounds(5, 50, 100, 30);
+        notifiy.addActionListener(e -> {
+            notifyopt.setVisible(!notifyopt.isVisible());
             generalopt.setVisible(false);
         });
-        optionsmenu.add(layout);
+        optionsmenu.add(notifiy);
 
         JButton logout = new JButton("<html><p style='color: red;'>LOGOUT</p></html>");
         logout.setBounds(5, 400, 100, 30);
@@ -209,10 +209,10 @@ public class ClientUI {
         p.setBounds(0, 0, 520, 400);
         on.setBounds(0, 220, 300, 400);
 
-        layoutopt.setBounds(0, 0, 400, 400);
+        notifyopt.setBounds(0, 0, 400, 400);
         generalopt.setBounds(0, 0, 400, 400);
 
-        op.add(layoutopt);
+        op.add(notifyopt);
         op.add(generalopt);
 
         con.add(p);

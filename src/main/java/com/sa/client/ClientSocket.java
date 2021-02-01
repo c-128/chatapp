@@ -5,8 +5,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sa.client.ui.ClientUI;
+import com.sa.client.utils.NotifyMan;
+import com.sa.main.utils.Config;
 
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class ClientSocket {
 
                     if (task.equalsIgnoreCase("msg")) {
                         ClientUI.msgs.setText(ClientUI.msgs.getText() + "<p>" + json.get("author").getAsString() + ": " + json.get("msg").getAsString() + "</p>");
+                        if (!json.get("author").getAsString().equalsIgnoreCase(Client.USR)) {
+                            if (Config.getBoolean("client.opt.notification")) {
+                                NotifyMan.newmsg("ChatApp - New Message", json.get("author").getAsString() + ": " + json.get("msg").getAsString(), "");
+                            }
+                        }
                     } else if (task.equalsIgnoreCase("online-memb")) {
                         ONLINE.clear();
                         JsonArray online = json.getAsJsonArray("online");

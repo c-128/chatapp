@@ -1,19 +1,19 @@
-com/sa/main/utils/Config.java
- com.sa.main.utils.Config
-com/sa/main/utils/VaribleUtils.java
- com.sa.main.utils.VaribleUtils
-com/sa/server/ServerSocket.java
- com.sa.server.ServerSocket
-com/sa/main/Main.java
- com.sa.main.Main
-com/sa/server/utils/LoginMan.java
- com.sa.server.utils.LoginMan
-com/sa/main/utils/Message.java
- com.sa.main.utils.Message
 com/sa/server/Server.java
  com.sa.server.Server
-com/sa/client/utils/CommandHandler.java
- com.sa.client.utils.CommandHandler
+com/sa/main/utils/VaribleUtils.java
+ com.sa.main.utils.VaribleUtils
+com/sa/server/utils/LoginMan.java
+ com.sa.server.utils.LoginMan
+com/sa/client/utils/NotifyMan.java
+ com.sa.client.utils.NotifyMan
+com/sa/server/ServerSocket.java
+ com.sa.server.ServerSocket
+com/sa/main/utils/Message.java
+ com.sa.main.utils.Message
+com/sa/main/Main.java
+ com.sa.main.Main
+com/sa/main/utils/Config.java
+ com.sa.main.utils.Config
 com/sa/client/ui/ClientUI.java
  com.sa.client.ui.ClientUI
 com/sa/client/Client.java
@@ -22,3 +22,5 @@ com/sa/client/ClientSocket.java
  com.sa.client.ClientSocket
 com/sa/client/ui/ClientLoginUI.java
  com.sa.client.ui.ClientLoginUI
+com/sa/client/utils/CommandHandler.java
+ com.sa.client.utils.CommandHandler
