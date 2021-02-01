@@ -27,6 +27,9 @@ public class ClientUI {
         JPanel con = new JPanel();
         con.setLayout(new BoxLayout(con, BoxLayout.X_AXIS));
 
+        JPanel opt = new JPanel();
+        opt.setLayout(new BoxLayout(con, BoxLayout.X_AXIS));
+
         JPanel p = new JPanel();
         p.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
         p.setLayout(null);
@@ -51,6 +54,44 @@ public class ClientUI {
             }
         });
         op.add(logout);
+
+        JPanel generalopt = new JPanel();
+        generalopt.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
+        generalopt.setVisible(false);
+        generalopt.setLayout(null);
+
+        JPanel layoutopt = new JPanel();
+        layoutopt.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
+        layoutopt.setVisible(false);
+        layoutopt.setLayout(null);
+
+        JButton bruh = new JButton("Bruh");
+        bruh.setBounds(0, 10, 100, 30);
+        generalopt.add(bruh);
+
+        JButton general = new JButton("General");
+        general.setBounds(10, 10, 100, 30);
+        general.addActionListener(e -> {
+            generalopt.setVisible(!generalopt.isVisible());
+            layoutopt.setVisible(false);
+        });
+        op.add(general);
+
+        JButton defaultlayout = new JButton("Default");
+        defaultlayout.setBounds(0, 10, 100, 30);
+        layoutopt.add(defaultlayout);
+
+        JButton darklayout = new JButton("Dark");
+        darklayout.setBounds(110, 10, 100, 30);
+        layoutopt.add(darklayout);
+
+        JButton layout = new JButton("Layout");
+        layout.setBounds(10, 50, 100, 30);
+        layout.addActionListener(e -> {
+            layoutopt.setVisible(!layoutopt.isVisible());
+            generalopt.setVisible(false);
+        });
+        op.add(layout);
 
         JButton optionsex = new JButton("X");
         optionsex.setBounds(440, 10, 50, 50);
@@ -81,6 +122,7 @@ public class ClientUI {
             f.setTitle("ChatApp");
             op.setVisible(true);
             p.setVisible(false);
+            on.setVisible(false);
         });
         p.add(options);
 
@@ -154,10 +196,14 @@ public class ClientUI {
         op.setBounds(0, 0, 520, 400);
         p.setBounds(0, 0, 520, 400);
         on.setBounds(0, 220, 300, 400);
+        layoutopt.setBounds(0, 0, 400, 400);
+        generalopt.setBounds(0, 0, 400, 400);
 
         con.add(p);
         con.add(op);
         con.add(on);
+        con.add(layoutopt);
+        con.add(generalopt);
 
         f.add(con, BorderLayout.CENTER);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
