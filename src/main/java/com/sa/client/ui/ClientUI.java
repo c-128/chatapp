@@ -66,7 +66,7 @@ public class ClientUI {
         layoutopt.setLayout(null);
 
         JButton bruh = new JButton("Bruh");
-        bruh.setBounds(0, 10, 100, 30);
+        bruh.setBounds(130, 10, 100, 30);
         generalopt.add(bruh);
 
         JButton general = new JButton("General");
@@ -78,11 +78,11 @@ public class ClientUI {
         op.add(general);
 
         JButton defaultlayout = new JButton("Default");
-        defaultlayout.setBounds(0, 10, 100, 30);
+        defaultlayout.setBounds(130, 10, 100, 30);
         layoutopt.add(defaultlayout);
 
         JButton darklayout = new JButton("Dark");
-        darklayout.setBounds(110, 10, 100, 30);
+        darklayout.setBounds(240, 10, 100, 30);
         layoutopt.add(darklayout);
 
         JButton layout = new JButton("Layout");
@@ -196,14 +196,16 @@ public class ClientUI {
         op.setBounds(0, 0, 520, 400);
         p.setBounds(0, 0, 520, 400);
         on.setBounds(0, 220, 300, 400);
+
         layoutopt.setBounds(0, 0, 400, 400);
         generalopt.setBounds(0, 0, 400, 400);
+
+        op.add(layoutopt);
+        op.add(generalopt);
 
         con.add(p);
         con.add(op);
         con.add(on);
-        con.add(layoutopt);
-        con.add(generalopt);
 
         f.add(con, BorderLayout.CENTER);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
