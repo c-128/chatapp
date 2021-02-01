@@ -14,19 +14,30 @@ import java.io.IOException;
 public class ClientUI {
 
     private static JFrame f;
+    private static boolean members_vis = false;
+
     public static JLabel msgs;
 
     public static void init() throws IOException {
         f = new JFrame();
         f.setSize(new Dimension(520, 400));
+        f.setResizable(false);
         DataOutputStream out = new DataOutputStream(ClientSocket.s.getOutputStream());
+
+        JPanel con = new JPanel();
+        con.setLayout(new BoxLayout(con, BoxLayout.X_AXIS));
 
         JPanel p = new JPanel();
         p.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
         p.setLayout(null);
 
-        JButton logout = new JButton("LOGOUT");
-        logout.setBounds(10, 10, 60, 25);
+        JPanel op = new JPanel();
+        op.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
+        op.setVisible(false);
+        op.setLayout(null);
+
+        JButton logout = new JButton("<html><p style='color: red;'>LOGOUT</p></html>");
+        logout.setBounds(10, 300, 100, 30);
         logout.addActionListener(e -> {
             close();
             Config.setString("client.logged_in", "false");
@@ -39,26 +50,63 @@ public class ClientUI {
                 ioException.printStackTrace();
             }
         });
-        p.add(logout);
+        op.add(logout);
 
-        JButton members = new JButton("ON");
+        JButton optionsex = new JButton("X");
+        optionsex.setBounds(440, 10, 50, 50);
+        optionsex.addActionListener(e -> {
+            f.setTitle("ChatApp - Options");
+            op.setVisible(false);
+            p.setVisible(true);
+        });
+        op.add(optionsex);
+
+        JPanel on = new JPanel();
+        on.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
+        on.setVisible(members_vis);
+        on.setLayout(null);
+
+        JLabel ondes = new JLabel("Online Members:");
+        ondes.setBounds(10, 10, 280, 25);
+        on.add(ondes);
+
+        JLabel online = new JLabel("<html><body><p>lol</p></html></body>");
+        JScrollPane onscorll = new JScrollPane(online, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        onscorll.setBounds(10, 50, 230, 250);
+        on.add(onscorll);
+
+        JButton options = new JButton("Settings");
+        options.setBounds(10, 10, 60, 25);
+        options.addActionListener(e -> {
+            f.setTitle("ChatApp");
+            op.setVisible(true);
+            p.setVisible(false);
+        });
+        p.add(options);
+
+        JButton members = new JButton("Memberlist");
         members.setBounds(70, 10, 360, 25);
         members.addActionListener(e -> {
             try {
                 JsonObject json = new JsonObject();
                 json.addProperty("task", "online-memb");
-
                 out.writeUTF(json.toString());
 
-                String on = "<html><body><p>Online members:</p>";
-                for (String name : ClientSocket.ONLINE) {
-                    on = on + "<p>" + name + "</p>";
-                }
-                on = on + "</body></html>";
+                Thread.sleep(500);
 
-                JOptionPane.showConfirmDialog(f, on, "ChatApp - Members", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception Exception) {
-                Exception.printStackTrace();
+                String membs = "<html><body><p>";
+
+                for (String name : ClientSocket.ONLINE) {
+                    membs = membs + name + "<br />";
+                }
+                membs = membs + "</p></body></html>";
+
+                online.setText(membs);
+
+                members_vis = !members_vis;
+                on.setVisible(members_vis);
+            } catch (IOException | InterruptedException ioException) {
+                ioException.printStackTrace();
             }
         });
         p.add(members);
@@ -103,7 +151,15 @@ public class ClientUI {
         });
         p.add(sendmsg);
 
-        f.add(p, BorderLayout.CENTER);
+        op.setBounds(0, 0, 520, 400);
+        p.setBounds(0, 0, 520, 400);
+        on.setBounds(0, 220, 300, 400);
+
+        con.add(p);
+        con.add(op);
+        con.add(on);
+
+        f.add(con, BorderLayout.CENTER);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setTitle("ChatApp");
     }

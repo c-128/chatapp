@@ -1,6 +1,5 @@
 package com.sa.client.utils;
 
-import com.sa.client.Client;
 import com.sa.client.ClientSocket;
 
 import java.io.DataOutputStream;
