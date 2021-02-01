@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.sa.client.Client;
 import com.sa.client.ClientSocket;
 import com.sa.client.utils.CommandHandler;
+import com.sa.main.utils.Config;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +25,24 @@ public class ClientUI {
         p.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 10));
         p.setLayout(null);
 
+        JButton logout = new JButton("LOGOUT");
+        logout.setBounds(10, 10, 60, 25);
+        logout.addActionListener(e -> {
+            close();
+            Config.setString("client.logged_in", "false");
+            Config.setString("client.port", "null");
+            Config.setString("client.usr", "null");
+            Config.setString("client.ip", "null");
+            try {
+                CommandHandler.handle("!exit");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        p.add(logout);
+
         JButton members = new JButton("ON");
-        members.setBounds(10, 10, 420, 25);
+        members.setBounds(70, 10, 360, 25);
         members.addActionListener(e -> {
             try {
                 JsonObject json = new JsonObject();

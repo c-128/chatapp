@@ -17,7 +17,10 @@ public class Config {
         if (!f.exists()) {
             f.createNewFile();
             p.setProperty("server.port", "90");
-            p.setProperty("server.ip", "localhost");
+            p.setProperty("client.logged_in", "false");
+            p.setProperty("client.ip", "null");
+            p.setProperty("client.port", "null");
+            p.setProperty("client.usr", "null");
         }
 
         is = new FileInputStream(file);
@@ -28,6 +31,27 @@ public class Config {
 
     public static Properties getConfig() {
         return p;
+    }
+
+    public static boolean getBoolean(String key) {
+        return Boolean.parseBoolean(p.getProperty(key));
+    }
+
+    public static int getInt(String key) {
+        return Integer.parseInt(p.getProperty(key));
+    }
+
+    public static String getString(String key) {
+        return p.getProperty(key);
+    }
+
+    public static void setString(String v, String k) {
+        p.setProperty(v, k);
+        try {
+            save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void save() throws IOException {

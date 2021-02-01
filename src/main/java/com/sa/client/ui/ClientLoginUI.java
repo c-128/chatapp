@@ -2,6 +2,7 @@ package com.sa.client.ui;
 
 import com.sa.client.Client;
 import com.sa.client.ClientSocket;
+import com.sa.main.utils.Config;
 import com.sa.main.utils.VaribleUtils;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class ClientLoginUI {
 
     private static JFrame f;
 
-    public static void init() throws IOException {
+    public static void init() {
         f = new JFrame();
         f.setSize(new Dimension(520, 400));
 
@@ -44,6 +45,10 @@ public class ClientLoginUI {
         usr.setBounds(220, 90, 270, 25);
         p.add(usr);
 
+        JCheckBox save = new JCheckBox("Keep me logged in");
+        save.setBounds(10, 130, 400, 25);
+        p.add(save);
+
         JButton login = new JButton("LOGIN");
         login.setBounds(10, 270, 480, 75);
         login.addActionListener(e -> {
@@ -52,15 +57,24 @@ public class ClientLoginUI {
                 if (VaribleUtils.isInt(port.getText())) {
                     Client.PORT = Integer.parseInt(port.getText());
                 } else {
-                    JOptionPane.showConfirmDialog(f, "ChatApp - Error", "<html><body><p>Invalid Port<br />Please check the values or contact the<br />system administrator.</p></body></html>", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(f, "<html><body><p>Invalid Port<br />Please check the values or contact the<br />system administrator.</p></body></html>", "ChatApp - Error", JOptionPane.DEFAULT_OPTION);
                 }
                 Client.USR = usr.getText();
                 ClientSocket.init();
                 close();
                 ClientUI.init();
                 ClientUI.open();
+
+                if (save.isSelected()) {
+                    Config.setString("client.logged_in", "true");
+                    Config.setString("client.ip", Client.IP);
+                    Config.setString("client.port", "" + Client.PORT);
+                    Config.setString("client.usr", Client.USR);
+                } else {
+                    Config.setString("client.logged_in", "false");
+                }
             } catch (IOException ioException) {
-                JOptionPane.showConfirmDialog(f, "ChatApp - Error", "Invalid IP or Port\nPlease check the value doesn't contain any character.", JOptionPane.DEFAULT_OPTION);
+                JOptionPane.showConfirmDialog(f, "<html><body><p>Invalid IP or Port<br />Please check the value doesn't contain any character.</p></body></html>", "ChatApp - Error", JOptionPane.DEFAULT_OPTION);
             }
         });
         p.add(login);
