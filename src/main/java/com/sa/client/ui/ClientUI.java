@@ -53,9 +53,13 @@ public class ClientUI {
         layoutopt.setVisible(false);
         layoutopt.setLayout(null);
 
-        JButton bruh = new JButton("Bruh");
-        bruh.setBounds(140, 10, 100, 30);
-        generalopt.add(bruh);
+        JLabel usrinfo = new JLabel("Username: " + Client.USR);
+        usrinfo.setBounds(140, 10, 200, 30);
+        generalopt.add(usrinfo);
+
+        JLabel ipinfo = new JLabel("IP: " + Client.IP);
+        ipinfo.setBounds(140, 30, 200, 30);
+        generalopt.add(ipinfo);
 
         JButton general = new JButton("General");
         general.setBounds(5, 10, 100, 30);
